@@ -8,3 +8,7 @@ Everything under this line was added on the feature branch
 Black Widow
 Wolverine
 Hawkeye
+
+Dr. Strange
+Namor
+Daredevil
