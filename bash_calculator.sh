@@ -8,7 +8,7 @@ do
 
 #A greeting, followed by a request for a number - the script then reads the number and uses it for the operations below
   echo "Welcome to Bash Calculator 3000! Feed me 2 numbers"
-  echo -n "The 1st tasty number please: "
+  echo -n  "The 1st tasty number please: "
   read n1
   echo "YUM!"
 
