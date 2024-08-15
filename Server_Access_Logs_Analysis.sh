@@ -22,4 +22,5 @@ done < <(grep " 404 " web-server-access-logs.log)
 # The final count of lines containing the 404 error
 echo "Total 404 Errors: $total_count"
 
+# PS: The one line answer is: grep " 404 " web-server-access-logs.log | awk -F'[," ]+' '{print "Error: 404 | IP Address:", $2}'
 # This was so much fun!!
