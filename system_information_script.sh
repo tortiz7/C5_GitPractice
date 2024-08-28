@@ -8,7 +8,7 @@ while [ "$i" = "Y" ] || [ "$i" = "y" ]
 do
 
 # Alright, let's start with a variable library! The echo commands for the user-friendly menus will pull from these
-# we curl -s (silenlty!) to hide the curl status bar (not very user friendly!) The url will give us our publi IP
+# we curl -s (silenlty!) to hide the curl status bar (not very user friendly!) The url will give us our public IP
 # hostname -i gives us our private IP
 # whoami shows what user is currently signed into the terminal
 # "nproc --all" gives us all cpu cores installed on the system
@@ -49,8 +49,8 @@ free_memory=$(free -h | grep Mem | awk '{print $4}')
        ps aux --sort='-%cpu' | head -n 6;;
   7) echo "What website would you like to connect to?"
 
-# The below was a doozy: So it stores the website given by the user in a varible, then it pings that website by sending 4 packets (for brevity); then we use awk to search for the line containing "/packet loss/", assigns a variable to that column "packet_loss", then does the same for the time taken to ping the website, then prints those two values
-# We then create variables for packet_loss and time that our final echo statement can use. "cut -d' '" cut the first and second fields (f1 and f2 cutting the values for the first and second fields in the awk line above      
+# The below was a doozy: So it stores the website given by the user in a varible ($website), then it pings that website by sending 4 packets (for brevity); then we use awk to search for the line containing "/packet loss/", assigns a variable to that column "packet_loss", then does the same for the time taken to ping the website, then we END the awk command and print out our packet_loss and time variables, seperated by a space These two fields become the $website_ping variable.
+# We then create seperate variables for packet_loss and time that our final echo statement can use. Since those variables are stored in the $website_ping variable, we first echo that variable, then we use "cut" ( "-d' '" in this instance sets the delimtier for the variable as a space) to extract the first and second fields of the $website_ping variable (the packet_loss and time, respectively)
 
     	read website
     	website_ping=$(ping -c 4 $website | awk '/packet loss/ { packet_loss=$6 } /time/ { time=$10 } END { print packet_loss, time }')
