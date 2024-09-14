@@ -20,9 +20,9 @@
 # sidenote - I was so nervous during the Mock tech, I didn't even realize the script was outputting a bunch of random IPs to a different file (access.log). Whoops!
 # Finally, we sort the count of uniq IP's again, this time in numerical order (-n flag) and then we reverse that numerical order (-r) so that the most prevelant IP is printed first followed by the rest in desending order of occurence
 
-cat access.log | grep -o "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}" | sort | uniq -c | sort -n -r
+cat access.log | grep -o "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}" | sort | uniq -c | sort -n -r > ip_counts.txt
 
 # BONUS: Grep has a flag for extended regular expression (-E) that understands special characters and makes it so you don't have to escape after every used special character, so less backslashes!
-#cat access.log | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | sort | uniq -c | sort -n -r
+#cat access.log | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | sort | uniq -c | sort -n -r > ip_counts.txt
 
 
