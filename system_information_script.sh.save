@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Alright, let's start with a variable library! The echo commands for the user-friendly menus will pull from these
+# we curl -s (silenlty!) to hide the curl status bar (not very user friendly!) The url will give us our publi IP
+# hostname -i gives us our private IP
+# whoami shows what user is currently signed into the terminal
+
+i="Y"
+
+while [ "$i" = "Y" ] || [ "$i" = "y" ]
+do
+
+public_ip=$(curl -s ipaddress.ai)
+private_ip=$(hostname -i)
+identity=$(whoami)
+cpus=$(nproc --all)
+total_memory=$(free -h | grep Mem |  awk '{print $2}')
+free_memory=$(free -h | grep Mem | awk '{print $4}')
+
+  echo "Hello User Supreme! What would you like to know about your system: "
+  echo )System Public and Private IP: "
+  echo 2)"Current User identity: "
+  echo 3)"Amount of CPUs installed on your system: "
+  echo 4)"Amount of free memory on your system: "
+  echo 5)"A table of the top 5 memory intensive processes on your system: "
+  echo 6)"A table of the top 5 CPU intensive processes on your system: "
+  echo 7)"Test network connection to a website of your choice: "
+  read ch
+  case $ch in    
+  1)echo "your Public IP is "$public_ip" ; your Private IP is "$private_ip"."
+  2)echo "you are "$identity"."
+  3)echo "your system has "$cpus" CPU(s)."
+  4)echo "there is "$free_memory" of total "$total_memory" available."
+  5)echo "Here is a table of your Top 5 memory intensive processes: "
+    sleep 1
+    ps aux --sort '%mem' | tail -n 5
+  6)echo "Here is a table of your Top 5 cpu intensive processes: "
+    sleep 1
+    ps aux --sort '%cpu' | tail -n 5
+  7)echo "What website would you like to connect to?"
+   
+    	read website
+    	website_ping=$(ping -c 4 $website | awk '/packet loss/ { packet_loss=$6 } /time/ { time=$10 } END { print packet_loss, time }')
+    	packet_loss=$(echo $website_ping | cut -d' ' -f1)
+    	time=$(echo $website_ping | cut -d' ' -f2)
+
+    echo "It took "$time" to reach "$website" and there was "$packet_loss" packet loss getting there!"
+  echo "would you like to test another website? [Y/N]"
+  read i
+done
+echo "Hope your system is looking good! Have a great day!"

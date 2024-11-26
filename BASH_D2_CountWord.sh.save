@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# 'shopt' is shell option, allowing us to change charactertics of our shell for this script. 
+shopt -s nocasematch
+
+while i=y
+do
+# The below echo statement prompts the user for the file they want to count words in, and saves it to a variable
+echo "Enter the text file you would like to count the occurrence of a word in: "
+read file
+
+# The below echo statement prompts the user for the word they want to count in the file they specified above
+echo "Enter the word you would like to count the number of occurrence of in $file: "
+read word
+
+echo "counting occurrences of word $word in $file..."
+sleep 1
+
+# the main event! the -o flag for 'grep' outputs each word found to a new line; the '-i' flag ignores case (so it will count the word irregardless of case)
+# then, the grep output is piped into the word count 'wc' command, which uses the '-1' flag to count each line (which in this case, will count each occurence of the word)
+# that is all saved to a variable we can referene in our final echo statement
+wordcount=$(grep -o -i $word $file | wc -l)
+
+echo "The word $word occurs $wordcount times in $file"  
+
+echo "would you like to to find words in another file? (y/n)"
+read i
+done

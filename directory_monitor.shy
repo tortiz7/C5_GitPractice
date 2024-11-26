@@ -1,0 +1,25 @@
+
+#1/bin/bash
+
+echo  "what directory do you want to monitor: "
+read directory
+
+size=$(du -sh "$directory" | cut -f1)
+echo "the total size of the directory is: $size"
+
+size_in_kb=$(du -sk "$directory" | cut -f1)
+
+
+if [ "$size_in_kb" -gt 10240 ]; then
+  echo "WARNING: the $directory is exceeds 100MB"
+  echo "do you want to compress the directory (y/n)"
+  read compress_choice
+  if [ "$compress_choice" == "yes" ]; then
+  echo "compressing the directory..."
+  zip -r "$directory##*/".zip" "$directory"
+  echo "$directory compressed into $(directory##*/).zip"
+  else
+  echo "compression skipped."
+  fi
+fi
+
